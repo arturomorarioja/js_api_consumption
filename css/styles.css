@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap");
+
+:root {
+    --colorPrimary: black;
+    --colorSecondary: white;
+    --colorAlert: red;
+
+    --colorBgPrimary: rgb(39, 53, 74);
+    --colorBgHeader: rgb(234, 80, 71);
+    --colorBgTable: lightcyan;
+
+    --fontMain: Arial, Helvetica, sans-serif;
+    --fontSecondary: 'Garamond', 'Book Antiqua', 'Times New Roman', serif;
+    --fontHeader: 'Raleway', Arial, Helvetica, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--fontMain);    
+    font-size: 16px;
+}
+
+header {
+    color: var(--colorSecondary);
+    background-color: var(--colorBgPrimary);
+    font-family: var(--fontHeader);
+    font-weight: normal;
+    padding: 1rem;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    color: var(--colorSecondary);
+    background-color: var(--colorBgPrimary);
+    margin: 0;
+    padding: 0.25rem;
+    font-family: var(--fontHeader);
+}
+
+/* Block classes */
+fieldset, section { 
+    border: thin solid var(--colorPrimary); 
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+}
+
+/* Form */
+label[for="txtTown"] {
+    float: left;
+    width: 4rem;
+}
+input#txtTown {
+    width: calc(100% - 5rem);
+}
+button#btnTownInfo {
+    padding: 0.25rem 1rem;
+    margin-top: 0.5rem;
+    border-radius: 0.25rem;
+}
+#errorMessage {
+    display: block;    
+    margin-top: 0.5rem;
+}
+@media (min-width: 570px) {
+    #errorMessage {
+        display: inline;
+        margin: 0;
+    }
+}
+
+/* Display info */
+#weatherInfo {
+    display: none;
+    flex-flow: row wrap;
+    padding-bottom: 0.5rem;    
+}
+h3 {
+    font-family: var(--fontSecondary);
+    font-size: 1.4rem;
+}
+#map {
+    display: block;
+    width: 100%;
+    height: 10rem;
+    margin: 0.5rem 0 0 0;
+}
+/* This breakpoint is referenced in script.js */
+@media (min-width: 768px) {
+    #weather {
+        float: left;
+    }
+    #map {
+        display: inline-block;;
+        width: auto;
+        margin-left: 1rem;
+    }
+}
+.alert {
+    color: var(--colorAlert);
+}
+#eventInfo {
+    display: none;
+    margin-bottom: 2rem;
+    padding: 0;
+}
+#eventHeader {
+    margin: 0;
+    padding-left: 1rem;
+    border-radius: 0.25rem 0.25rem 0 0;
+    color: var(--colorSecondary);
+    background: var(--colorBgPrimary);
+    font-family: var(--fontHeader);
+}
+#eventList {
+    padding: 0;
+}
+p.event {
+    margin: 0;
+    padding: 0.5rem;
+}
+p.oddEvent {
+    background: var(--colorBgTable);
+}
+p.event:last-of-type {
+    border-radius: 0 0 0.5rem 0.5rem;
+}

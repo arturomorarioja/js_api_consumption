@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>KEA - API Consumption Sample</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script type="module" src="js/script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>API Consumption</h1>
+    </header>
+    <form>
+        <fieldset>
+            <div>
+                <label for="txtTown">Town</label>
+                <input type="text" name="txtTown" id="txtTown" maxlength="80">            
+            </div>               
+            <div>
+                <button type="submit" name="btnTownInfo" id="btnTownInfo">Town Information</button>&nbsp;&nbsp;&nbsp;
+                <span class="hidden alert" id="errorMessage"></span>        
+            </div>
+        </fieldset>
+    </form>            
+    <section id="weatherInfo">
+        <div id="weather">
+            <h3 id="townName"></h3>
+            <h5 id="mainWeather"></h5>
+            <div><span id="temperature"></span> &deg;C (feels like <span id="feelsLike"></span> &deg;C)</div>
+            <div>Humidity: <span id="humidity"></span>%</div>
+            <div>Wind speed: <span id="wind"></span> m/s</div>
+        </div>
+        <img id="map" alt="City map">
+    </section>
+    <section id="eventInfo">
+        <div id="eventHeader">Events</div>
+        <div id="eventList"></div>
+    </section>
+    <footer>
+        <p>&copy; 2021-2023 Arturo Mora-Rioja</p>
+    </footer>
+</body>
+</html>
