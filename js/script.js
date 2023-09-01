@@ -11,6 +11,7 @@
  *          1.0.1 August 2021. Bootstrap removed
  *                             Style improvements
  *          2.0.0 July 2023. jQuery removed. jQuery Ajax calls substituted by Fetch
+ *          2.0.1 August 2023. Code prettification
  */
 'use strict';
 
@@ -29,7 +30,7 @@ document.querySelector('#btnTownInfo').addEventListener('click', (e) => {
         return;
     }
 
-    const weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + townName + '&units=metric&appid=' + weatherAPIKey;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${townName}&units=metric&appid=${weatherAPIKey}`;
 
     document.querySelector('#errorMessage').style.display = 'none';
     fetch(weatherUrl, {
@@ -96,7 +97,9 @@ const showMap = (longitude, latitude) => {
                 minus the container's padding on both sides (padding width * 2)
                 minus the container's border width on both sides (borderWidth * 2)
         */
-        mapWidth = (document.querySelector('#weatherInfo').offsetWidth - (paddingOrMarginWidth * 3) - (borderWidth * 2)).toFixed(0);
+        mapWidth = (document.querySelector('#weatherInfo').offsetWidth - 
+                    (paddingOrMarginWidth * 3) - 
+                    (borderWidth * 2)).toFixed(0);
     } else {        
         /*
             Map width calculation = 
@@ -107,7 +110,10 @@ const showMap = (longitude, latitude) => {
                 minus the container's border width on both sides (borderWidth * 2)
                 minus the image's margin on the left (margin width)
         */
-        mapWidth = (document.querySelector('#weatherInfo').offsetWidth - document.querySelector('#weather').offsetWidth - (paddingOrMarginWidth * 4) - (borderWidth * 2)).toFixed(0);
+        mapWidth = (document.querySelector('#weatherInfo').offsetWidth - 
+                    document.querySelector('#weather').offsetWidth - 
+                    (paddingOrMarginWidth * 4) - 
+                    (borderWidth * 2)).toFixed(0);
     }    
     document.querySelector('#map').style.width = mapWidth + 'px';
     
