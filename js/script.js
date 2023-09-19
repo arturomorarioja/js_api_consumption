@@ -13,8 +13,6 @@
  *          2.0.0 July 2023. jQuery removed. jQuery Ajax calls substituted by Fetch
  *          2.0.1 August 2023. Code prettification
  */
-'use strict';
-
 import { weatherAPIKey, mapAPIKey, eventsAPIKey } from './keys.js';
     
 let latitude = 0;
