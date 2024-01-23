@@ -11,8 +11,8 @@ Front-end application that consumes three public APIs:
 In order to run the app, it is necessary to add the file `js/keys.js`, which contains the following:
 ```javascript
 export const weatherAPIKey = '<key_provided_by_OpenWeather>';
-export const  mapAPIKey = '<key_provided_by_MapBox>';
-export const  eventsAPIKey = '<key_provided_by_TicketMaster>';
+export const mapAPIKey = '<key_provided_by_MapBox>';
+export const eventsAPIKey = '<key_provided_by_TicketMaster>';
 ```
 
 ## Tools
