@@ -68,19 +68,16 @@ button#btnTownInfo {
     border-radius: 0.25rem;
 }
 #errorMessage {
-    display: block;    
     margin-top: 0.5rem;
 }
 @media (min-width: 570px) {
     #errorMessage {
-        display: inline;
         margin: 0;
     }
 }
 
 /* Display info */
 #weatherInfo {
-    display: none;
     flex-flow: row wrap;
     padding-bottom: 0.5rem;    
 }
@@ -109,7 +106,6 @@ h3 {
     color: var(--colorAlert);
 }
 #eventInfo {
-    display: none;
     margin-bottom: 2rem;
     padding: 0;
 }
@@ -133,4 +129,8 @@ p.oddEvent {
 }
 p.event:last-of-type {
     border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.hide {
+    display: none;
 }

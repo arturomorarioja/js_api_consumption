@@ -18,6 +18,10 @@ import { weatherAPIKey, mapAPIKey, eventsAPIKey } from './keys.js';
 let latitude = 0;
 let longitude = 0;
 
+document.querySelector('#weatherInfo').classList.add('hide');
+document.querySelector('#eventInfo').classList.add('hide');
+document.querySelector('#errorMessage').classList.add('hide');
+
 // "Town Information" button clicked 
 document.querySelector('#btnTownInfo').addEventListener('click', (e) => {
     e.preventDefault();
@@ -30,7 +34,7 @@ document.querySelector('#btnTownInfo').addEventListener('click', (e) => {
 
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${townName}&units=metric&appid=${weatherAPIKey}`;
 
-    document.querySelector('#errorMessage').style.display = 'none';
+    document.querySelector('#errorMessage').classList.add('hide');
     fetch(weatherUrl, {
         method: 'GET'
     }).then((response) => response.json())
@@ -44,7 +48,8 @@ document.querySelector('#btnTownInfo').addEventListener('click', (e) => {
             document.querySelector('#humidity').innerHTML = data.main.humidity;
             document.querySelector('#wind').innerHTML = data.wind.speed;
     
-            document.querySelector('#weatherInfo').style.display = 'block';
+            document.querySelector('#errorMessage').classList.add('hide');
+            document.querySelector('#weatherInfo').classList.remove('hide');
     
             longitude = data.coord.lon;
             latitude = data.coord.lat;
@@ -60,7 +65,7 @@ document.querySelector('#btnTownInfo').addEventListener('click', (e) => {
 });
 
 window.addEventListener('resize', () => {
-    if (document.querySelector('#weatherInfo').style.display !== 'none') {
+    if (document.querySelector('#weatherInfo').classList.contains('hide')) {
         showMap(longitude, latitude);
     }
 });
@@ -75,19 +80,20 @@ const showError = (code) => {
         default:        msgError = 'There was an error while processing the request';
     }
     document.querySelector('#errorMessage').innerHTML = msgError;
-    document.querySelector('#weatherInfo').style.display = 'none';
-    document.querySelector('#eventInfo').style.display = 'none';
-    document.querySelector('#errorMessage').style.display = 'block';
+    document.querySelector('#weatherInfo').classList.add('hide');
+    document.querySelector('#eventInfo').classList.add('hide');
+    document.querySelector('#errorMessage').classList.remove('hide');
 }
 
 // Shows the map corresponding to the geographical coordinates received as parameters
 const showMap = (longitude, latitude) => {
     const userName = 'mapbox';
     let mapWidth;
-
+    
+    const breakPoint = 768;                     // Media query breakpoint
     const borderWidth = 2;
     const paddingOrMarginWidth = 16;            // Base font size was set at 16 in the style sheet
-    if (document.body.offsetWidth < 768) {      // Media query breakpoint
+    if (document.body.offsetWidth < breakPoint) {      
         /*
             Map width calculation =
                 width of the weather information container
@@ -135,7 +141,7 @@ const showEvents = (townName) => {
             noEventsMsg.innerText = 'There are no events scheduled for the selected town';
             noEventsMsg.classList.add('event');
             document.querySelector('#eventList').appendChild(noEventsMsg);
-            document.querySelector('#eventInfo').style.display = 'block';
+            document.querySelector('#eventInfo').classList.remove('hide');
             return;
         }
 
@@ -165,8 +171,8 @@ const showEvents = (townName) => {
         });
         // A light blue background is set on odd events; white background remains in even events
         document.querySelectorAll('#eventList > p:nth-child(odd)').forEach((event) => event.classList.add('oddEvent'));
-        document.querySelector('#eventInfo').style.display = 'block';
+        document.querySelector('#eventInfo').classList.remove('hide');
     }).catch(error => {
-        document.querySelector('#eventInfo').style.display = 'none';
+        document.querySelector('#eventInfo').classList.add('hide');
     });
 }    
