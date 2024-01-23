@@ -12,6 +12,7 @@
  *                             Style improvements
  *          2.0.0 July 2023. jQuery removed. jQuery Ajax calls substituted by Fetch
  *          2.0.1 August 2023. Code prettification
+ *          2.0.2 January 2024. Refactoring
  */
 import { weatherAPIKey, mapAPIKey, eventsAPIKey } from './keys.js';
     
