@@ -23,7 +23,9 @@ document.querySelector('#weatherInfo').classList.add('hide');
 document.querySelector('#eventInfo').classList.add('hide');
 document.querySelector('#errorMessage').classList.add('hide');
 
-// "Town Information" button clicked 
+/**
+ * "Town Information" button clicked 
+ */
 document.querySelector('#btnTownInfo').addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -55,6 +57,7 @@ document.querySelector('#btnTownInfo').addEventListener('click', (e) => {
             longitude = data.coord.lon;
             latitude = data.coord.lat;
     
+            // Show the map and the events
             showMap(longitude, latitude);
             showEvents(data.name);                
         } else {
@@ -65,13 +68,18 @@ document.querySelector('#btnTownInfo').addEventListener('click', (e) => {
     });
 });
 
+/**
+ * The map is reloaded every time the viewport is resized
+ */
 window.addEventListener('resize', () => {
     if (document.querySelector('#weatherInfo').classList.contains('hide')) {
         showMap(longitude, latitude);
     }
 });
 
-// Shows an error message corresponding to the code it receives as parameter
+/**
+ * Shows an error message corresponding to the code it receives as parameter
+ */
 const showError = (code) => {
     let msgError;
 
@@ -86,7 +94,9 @@ const showError = (code) => {
     document.querySelector('#errorMessage').classList.remove('hide');
 }
 
-// Shows the map corresponding to the geographical coordinates received as parameters
+/**
+ * Shows the map corresponding to the geographical coordinates received as parameters
+ */
 const showMap = (longitude, latitude) => {
     const userName = 'mapbox';
     let mapWidth;
@@ -127,15 +137,17 @@ const showMap = (longitude, latitude) => {
     document.querySelector('#map').src = mapUrl;
 }
 
-// Shows the events in the specified location
+/**
+ * Shows the events in the specified location
+ */
 const showEvents = (townName) => {
-    const eventsUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=' + eventsAPIKey + 
+    const eventsUrl = 
+        'https://app.ticketmaster.com/discovery/v2/events?apikey=' + eventsAPIKey + 
         '&locale=*&city=' + townName;
     document.querySelector('#eventList').innerHTML = '';
 
-    fetch(eventsUrl, {
-        method: 'GET'
-    }).then((response) => response.json())
+    fetch(eventsUrl)
+    .then((response) => response.json())
     .then((data) => {
         if (data.page.totalElements === 0) {
             const noEventsMsg = document.createElement('p');
@@ -147,33 +159,34 @@ const showEvents = (townName) => {
         }
 
         data._embedded.events.forEach ((item) => {
-            let venues = item._embedded.venues;
-            let eventText = item.name + '<br>';
-            eventText += item.dates.start.localDate + ' ' + item.dates.start.localTime;
-            for (let venue of venues) {
+            let eventText = `
+                <div>${item.name}</div>
+                <div>${item.dates.start.localDate} ${item.dates.start.localTime}`;
+            for (const venue of item._embedded.venues) {
                 eventText += ', ' + venue.name;
             }
+            eventText += '</div>';
 
             const event = document.createElement('p');
             event.innerHTML = eventText;
             event.classList.add('event');
             
             // If the show has been cancelled or rescheduled, an informative text is added
-            let statusCode = item.dates.status.code;
+            const statusCode = item.dates.status.code;
             if (statusCode !== 'onsale') {
                 const status = document.createElement('span');
                 status.innerText = ' (' + statusCode + ')';
                 status.classList.add('alert');
 
-                event.appendChild(status);
+                event.querySelector('div:last-of-type').appendChild(status);
             }
 
             document.querySelector('#eventList').appendChild(event);
-        });
-        // A light blue background is set on odd events; white background remains in even events
-        document.querySelectorAll('#eventList > p:nth-child(odd)').forEach((event) => event.classList.add('oddEvent'));
+        });        
         document.querySelector('#eventInfo').classList.remove('hide');
+        
     }).catch(error => {
         document.querySelector('#eventInfo').classList.add('hide');
+        console.error(error);
     });
 }    

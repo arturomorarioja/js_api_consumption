@@ -69,9 +69,7 @@ button#btnTownInfo {
 }
 #errorMessage {
     margin-top: 0.5rem;
-}
-@media (min-width: 570px) {
-    #errorMessage {
+    @media (min-width: 570px) {
         margin: 0;
     }
 }
@@ -81,9 +79,13 @@ button#btnTownInfo {
     flex-flow: row wrap;
     padding-bottom: 0.5rem;    
 }
-h3 {
+h2 {
     font-family: var(--fontSecondary);
     font-size: 1.4rem;
+}
+h3 {
+    font-family: var(--fontHeader);
+    margin-bottom: 0.5rem;
 }
 #map {
     display: block;
@@ -119,16 +121,21 @@ h3 {
 }
 #eventList {
     padding: 0;
-}
-p.event {
-    margin: 0;
-    padding: 0.5rem;
-}
-p.oddEvent {
-    background: var(--colorBgTable);
-}
-p.event:last-of-type {
-    border-radius: 0 0 0.5rem 0.5rem;
+    > p:nth-child(odd) {
+        background: var(--colorBgTable);    
+    }
+    }
+p {
+    &.event {
+        margin: 0;
+        padding: 0.5rem;
+    }
+    &.oddEvent {
+        background: var(--colorBgTable);
+    }    
+    &.event:last-of-type {
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
 }
 
 .hide {
