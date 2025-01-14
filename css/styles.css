@@ -121,18 +121,19 @@ h3 {
 }
 #eventList {
     padding: 0;
-    > p:nth-child(odd) {
+    > article:nth-child(odd) {
         background: var(--colorBgTable);    
     }
+    /* No events scheduled message */
+    > p {   
+        padding: 0.5rem 1rem;
     }
-p {
+}
+article {
     &.event {
         margin: 0;
         padding: 0.5rem;
     }
-    &.oddEvent {
-        background: var(--colorBgTable);
-    }    
     &.event:last-of-type {
         border-radius: 0 0 0.5rem 0.5rem;
     }

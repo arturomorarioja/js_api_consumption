@@ -13,6 +13,7 @@
  *          2.0.0 July 2023. jQuery removed. jQuery Ajax calls substituted by Fetch
  *          2.0.1 August 2023. Code prettification
  *          2.0.2 January 2024. Refactoring
+ *          2.0.3 January 2025. HTML template and CSS nesting introduced
  */
 import { weatherAPIKey, mapAPIKey, eventsAPIKey } from './keys.js';
     
@@ -159,18 +160,15 @@ const showEvents = (townName) => {
         }
 
         data._embedded.events.forEach ((item) => {
-            let eventText = `
-                <div>${item.name}</div>
-                <div>${item.dates.start.localDate} ${item.dates.start.localTime}`;
-            for (const venue of item._embedded.venues) {
-                eventText += ', ' + venue.name;
-            }
-            eventText += '</div>';
+            const event = document.querySelector('#eventCard').content.cloneNode(true);
 
-            const event = document.createElement('p');
-            event.innerHTML = eventText;
-            event.classList.add('event');
-            
+            event.querySelector('.eventName').innerText = item.name;
+            const eventDatePlace = event.querySelector('.eventDatePlace');
+            eventDatePlace.innerText = item.dates.start.localDate + ' ' + item.dates.start.localTime;
+            for (const venue of item._embedded.venues) {
+                eventDatePlace.innerText += ', ' + venue.name;
+            }
+
             // If the show has been cancelled or rescheduled, an informative text is added
             const statusCode = item.dates.status.code;
             if (statusCode !== 'onsale') {
@@ -178,13 +176,13 @@ const showEvents = (townName) => {
                 status.innerText = ' (' + statusCode + ')';
                 status.classList.add('alert');
 
-                event.querySelector('div:last-of-type').appendChild(status);
+                event.querySelector('p:last-of-type').appendChild(status);
             }
 
             document.querySelector('#eventList').appendChild(event);
         });        
         document.querySelector('#eventInfo').classList.remove('hide');
-        
+
     }).catch(error => {
         document.querySelector('#eventInfo').classList.add('hide');
         console.error(error);
