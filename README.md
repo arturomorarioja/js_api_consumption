@@ -1,4 +1,4 @@
-# KEA API Consumption
+# API Consumption
 
 ## Purpose
 Front-end application that consumes three public APIs:
